@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Latihan DOM</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script defer src="https://use.fontawesome.com/releases/v5.8.1/js/all.js"
+        integrity="sha384-g5uSoOSBd7KkhAMlnQILrecXvzst9TdC09/VM+pjDTCM+1il8RHz5fKANTFFb+gQ"
+        crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="container">
+        <nav class="navbar navbar-light bg-light">
+            <a class="navbar-brand">Mini Ecommerce</a>
+            <form class="form-inline" id="formItem">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" id="keyword" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="searchItem">Search</button>
+            </form>
+            <button class="btn btn-primary" id="cart"><i class="fas fa-shopping-cart"></i>(0)</button>
+        </nav>
+        <div class="row">
+            <div class="col-md-12 mt-2" id="listBarang">
+
+            </div>
+        </div>
+    </div>
+    <script>
+
+
+        var items = [
+            ['001', 'Keyboard Logitek', 60000, 'Keyboard yang mantap untuk kantoran', 'logitek.jpg'],
+            ['002', 'Keyboard MSI', 300000, 'Keyboard gaming MSI mekanik', 'msi.jpg'],
+            ['003', 'Mouse Genius', 50000, 'Mouse Genius biar lebih pinter', 'genius.jpeg'],
+            ['004', 'Mouse Jerry', 30000, 'Mouse yang disukai kucing', 'jerry.jpg']
+        ];
+
+        // Release 0
+
+        function printItems(array) {
+            var temp = "";
+            for (var i = 0; i < array.length; i++) {
+                temp += `<div class="card" style="width: 18rem;">
+                            <img src="img/${array[i][4]}" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title" id="itemName">${array[i][1]}</h5>
+                                <p class="card-text" id="itemDesc">${array[i][3]}</p>
+                                <p class="card-text">${array[i][2]}</p>
+                                <a href="#" class="btn btn-primary" onclick="shop()" id="addCart">Tambahkan ke keranjang</a>
+                            </div>
+                        </div>`
+            }
+            return temp;
+        }
+
+
+        document.getElementById("listBarang").innerHTML = printItems(items);
+
+        // fungsi filter
+        function filter(keyword) {
+            var itemFil = [];
+            for (var i = 0; i < items.length; i++) {
+                var item = items[i];
+                var isMatch = item[1].toLowerCase().includes(keyword.toLowerCase());
+                if (isMatch == true) {
+                    itemFil.push(item);
+                }
+            }
+            return itemFil;
+        }
+
+
+        // Release 1
+        // klik submit
+        var formSearch = document.getElementById("formItem");
+        formSearch.addEventListener("submit", function (evt) {
+            evt.preventDefault(); // mencegah reload
+            var keyword = document.getElementById("keyword").value
+            var filtered = filter(keyword)
+            document.getElementById("listBarang").innerHTML = printItems(filtered)
+        })
+
+        // live search
+        var keyInput = document.getElementById("keyword")
+
+        keyInput.addEventListener("keyup", function (e) {
+            var kataKunci = e.target.value
+            var filtered2 = filter(kataKunci)
+            document.getElementById("listBarang").innerHTML = printItems(filtered2)
+        })
+
+
+        // Release 2
+        // menggunakan fungsi onclick pada href di printItems
+        var y = 1;
+        var keranjang = document.getElementById("cart");
+
+        function shop() {
+            keranjang.innerHTML = '<i class="fas fa-shopping-cart"></i>(' + y + ')';
+            y++;
+            // console.log(y);
+        }
+
+
+    </script>
+</body>
+
+</html>
