@@ -23,10 +23,8 @@
             </form>
             <button class="btn btn-primary" id="cart"><i class="fas fa-shopping-cart"></i>(0)</button>
         </nav>
-        <div class="row">
-            <div class="col-md-12 mt-2" id="listBarang">
+        <div class="row mt-2" id="listBarang">
 
-            </div>
         </div>
     </div>
     <script>
@@ -44,13 +42,15 @@
         function printItems(array) {
             var temp = "";
             for (var i = 0; i < array.length; i++) {
-                temp += `<div class="card" style="width: 18rem;">
-                            <img src="img/${array[i][4]}" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title" id="itemName">${array[i][1]}</h5>
-                                <p class="card-text" id="itemDesc">${array[i][3]}</p>
-                                <p class="card-text">${array[i][2]}</p>
-                                <a href="#" class="btn btn-primary" onclick="shop()" id="addCart">Tambahkan ke keranjang</a>
+                temp += `<div class="col-md-4">
+                            <div class="card" style="width: 18rem;">
+                                <img src="img/${array[i][4]}" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title" id="itemName">${array[i][1]}</h5>
+                                    <p class="card-text" id="itemDesc">${array[i][3]}</p>
+                                    <p class="card-text">${array[i][2]}</p>
+                                    <a href="#" class="btn btn-primary" onclick="shop()" id="addCart">Tambahkan ke keranjang</a>
+                                </div>
                             </div>
                         </div>`
             }
