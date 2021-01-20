@@ -21,9 +21,12 @@
         */
     $kids = ["Mike", "Dustin", "Will", "Lucas", "Max", "Eleven"]; // Lengkapi di sini
     $adults = ["Hopper", "Nancy",  "Joyce", "Jonathan", "Murray"];
+    $tes[1] = "aku";
+    $tes[2] = "saya";
     echo "<pre>";
     print_r($kids);
     print_r($adults);
+    print_r($tes);
     echo "</pre>";
     echo "<h3> Soal 2</h3>";
     /* 
