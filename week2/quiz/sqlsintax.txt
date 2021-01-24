@@ -1,0 +1,13 @@
+14.
+select name, sum(amount) as total_amount from customers, orders where customers.id = orders.customer_id group by customers.name, customers.id;
+
+15.
+- create table customers(id int auto_increment, name varchar(255),
+email varchar(255), password varchar(255), primary key(id));
+- create table orders(id int primary key auto_increment, amount varchar(255), customer_id int, constraint cus_type foreign key(customer_id) references customers(id));
+
+17.
+- insert into customers(name,email,password) values("John Doe","john@doe.com","john123"),("Jane Doe","jane@doe.com","jenita123");
+
+- insert into orders(amount,customer_id) values("500",1),("200",2),
+("750",2),("250",1),("400",2);
