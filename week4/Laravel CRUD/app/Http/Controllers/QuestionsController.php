@@ -8,13 +8,17 @@ use App\Question;
 
 class QuestionsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth')->except('index', 'show');
+    }
     public function index()
     {
         // $questions = DB::table('questions')->get(); // select * from questions
         // dd($query);
 
         // menggunakan model eloquent
-        $questions = Question::all();
+        $questions = Question::orderBy('created_at', 'desc')->get();
         return view('questions.index', compact('questions'));
     }
 

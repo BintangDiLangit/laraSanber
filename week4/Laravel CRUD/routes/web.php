@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,16 +14,16 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('items.index');
+    return view('index');
 });
 
-Route::get('/data-tables', function () {
-    return view('items.table');
-});
+// Route::get('/data-tables', function () {
+//     return view('items.table');
+// });
 
-Route::get('/index', function () {
-    return view('items.index');
-});
+// Route::get('/index', function () {
+//     return view('items.index');
+// });
 
 // name untuk menamai saja => php artisan route:list
 // Route::get('/questions', 'QuestionsController@index')->name('ques.index');
@@ -39,6 +40,7 @@ Route::get('/index', function () {
 // route otomatis akan dibuatkan
 Route::resource('user', 'UserController');
 
+Route::get('/', 'QuestionsController@index');
 // change route question agar lebih simple
 Route::resource('questions', 'QuestionsController');
 

@@ -1,68 +1,52 @@
-@extends('layouts.master');
-
+@extends('layouts.master')
+@section('title')
+    <title>List Pertanyaan</title>
+@endsection
 @section('content')
-    <div class="mt-3 ml-3">
-        <div class="card">
-            <div class="card-header">
-                <h3 class="card-title">Question Table</h3>
-            </div>
-            <!-- /.card-header -->
-            <div class="card-body">
-                @if (session('success'))
-                    <div class="alert alert-success">
-                        {{ session('success') }}
+    <div class="content-wrapper">
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1 class="m-0 text-dark">List Pertanyaan</h1>
                     </div>
-                @endif
-                <a class="btn btn-primary" href="{{ route('questions.create') }}">Create New Question</a>
-                <table class="table table-bordered mt-3">
-                    <thead>
-                        <tr>
-                            <th style="width: 10px">No.</th>
-                            <th>Judul</th>
-                            <th>Isi</th>
-                            <th style="width: 40px">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @forelse ($questions as $key => $question)
-                            {{-- @foreach ($questions as $key => $question) --}}
-                                <tr>
-                                    <td>{{ $key + 1 }}</td>
-                                    <td>{{ $question->judul }}</td>
-                                    <td>{{ $question->isi }}</td>
-                                    <td style="display: flex">
-                                        <a href="{{ route('questions.show', ['question' => $question->id]) }}"
-                                            class="btn btn-info btn-sm mr-2">show</a>
-
-                                        <a href="/questions/{{ $question->id }}/edit"
-                                            class="btn btn-default btn-sm mr-2">edit</a>
-                                        <form action="/questions/{{ $question->id }}" method="POST">
-                                            @csrf
-                                            @method('DELETE')
-                                            <input type="submit" value="delete" class="btn btn-danger btn-sm">
-                                        </form>
-                                    </td>
-                                </tr>
-                                {{--
-                            @endforeach --}}
-                        @empty
-                            <tr>
-                                <td colspan="4" align="center">No Question</td>
-                            </tr>
-                        @endforelse
-                    </tbody>
-                </table>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="/home">Home</a></li>
+                            <li class="breadcrumb-item active">List Pertanyaan</li>
+                            <li class="breadcrumb-item"><a href="/pertanyaan/create">Buat Pertanyaan</a></li>
+                        </ol>
+                    </div>
+                </div>
             </div>
-            <!-- /.card-body -->
-            {{-- <div class="card-footer clearfix">
-                <ul class="pagination pagination-sm m-0 float-right">
-                    <li class="page-item"><a class="page-link" href="#">«</a></li>
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item"><a class="page-link" href="#">»</a></li>
-                </ul>
-            </div> --}}
         </div>
+
+        <!-- Main content -->
+        <section class="content" id="dw">
+            <div class="container-fluid">
+                @foreach ($list as $pertanyaan)
+                    <div class="row-sm">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title mb-2">{{ $pertanyaan->judul }}</h5>
+                                <p class="card-subtitle text-muted">Dibuat Oleh : {{ $pertanyaan->user->name }} / Pada
+                                    tanggal : {{ $pertanyaan->created_at }} </p>
+                                <p class="card-text">{{ $pertanyaan->isi }}</p>
+                                @foreach ($pertanyaan->tags as $tag)
+                                    <a href="tag/{{ $tag->id }}"
+                                        class="btn btn-success btn-sm">{{ $tag->tag_name }}</a>
+                                @endforeach
+                                <br>
+                                <div class="mt-2">
+                                    <a href="/jawaban/create/{{ $pertanyaan->id }}" class="card-link">Bantu Jawab</a>
+                                    <a href="/pertanyaan/{{ $pertanyaan->id }}" class="card-link">Details Pertanyaan</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </section>
     </div>
+
 @endsection
